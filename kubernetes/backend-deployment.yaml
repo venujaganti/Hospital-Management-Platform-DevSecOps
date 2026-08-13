@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: hospital-backend
+  namespace: hospital
+
+spec:
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: hospital-backend
+
+  template:
+
+    metadata:
+      labels:
+        app: hospital-backend
+
+    spec:
+
+      containers:
+
+        - name: backend
+
+          image: hospital-backend:latest
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+
+            - containerPort: 5000
+
+          env:
+
+            - name: NODE_ENV
+
+              valueFrom:
+
+                configMapKeyRef:
+
+                  name: hospital-config
+
+                  key: NODE_ENV
+
+
+            - name: PORT
+
+              valueFrom:
+
+                configMapKeyRef:
+
+                  name: hospital-config
+
+                  key: PORT
+
+
+          resources:
+
+            requests:
+
+              cpu: "50m"
+
+              memory: "64Mi"
+
+            limits:
+
+              cpu: "300m"
+
+              memory: "256Mi"
+
+
+          livenessProbe:
+
+            httpGet:
+
+              path: /health
+
+              port: 5000
+
+            initialDelaySeconds: 15
+
+            periodSeconds: 20
+
+            timeoutSeconds: 5
+
+            failureThreshold: 3
+
+
+          readinessProbe:
+
+            httpGet:
+
+              path: /health
+
+              port: 5000
+
+            initialDelaySeconds: 5
+
+            periodSeconds: 10
+
+            timeoutSeconds: 5
+
+            failureThreshold: 3

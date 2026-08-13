@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# React build
+frontend/build/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Kubernetes secrets
+*-secret.yaml
+*.secret.yaml
+
+# Jenkins
+jenkins_home/
+
+# Temporary files
+tmp/
+temp/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Credentials
+*.pem
+*.key
+credentials.json

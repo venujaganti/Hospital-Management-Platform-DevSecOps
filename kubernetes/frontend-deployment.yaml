@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: hospital-frontend
+  namespace: hospital
+
+spec:
+
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: hospital-frontend
+
+  template:
+
+    metadata:
+      labels:
+        app: hospital-frontend
+
+    spec:
+
+      containers:
+
+        - name: frontend
+
+          image: hospital-frontend:latest
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+
+            - containerPort: 80
+
+          env:
+
+            - name: BACKEND_HOST
+
+              valueFrom:
+
+                configMapKeyRef:
+
+                  name: hospital-config
+
+                  key: BACKEND_HOST
+
+
+            - name: BACKEND_PORT
+
+              valueFrom:
+
+                configMapKeyRef:
+
+                  name: hospital-config
+
+                  key: BACKEND_PORT
+
+
+          resources:
+
+            requests:
+
+              cpu: "50m"
+
+              memory: "32Mi"
+
+            limits:
+
+              cpu: "200m"
+
+              memory: "128Mi"
+
+
+          livenessProbe:
+
+            httpGet:
+
+              path: /
+
+              port: 80
+
+            initialDelaySeconds: 10
+
+            periodSeconds: 20
+
+
+          readinessProbe:
+
+            httpGet:
+
+              path: /
+
+              port: 80
+
+            initialDelaySeconds: 5
+
+            periodSeconds: 10
