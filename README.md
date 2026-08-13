@@ -1,4 +1,3 @@
-# Hospital-Management-Platform
 
 A modern **Hospital Management Platform** designed to manage hospital operations such as patients, doctors, appointments, and medical information. The project is containerized with Docker and deployed using Kubernetes, with a DevSecOps CI/CD pipeline for automated build, security scanning, and deployment.
 
@@ -57,7 +56,6 @@ Hospital-Management-Platform-DevSecOps-Deployment/
 │   └── services.yaml
 │
 ├── screenshots/
-│   ├── login.png
 │   ├── dashboard.png
 │   ├── patients.png
 │   ├── doctors.png
